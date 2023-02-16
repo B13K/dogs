@@ -1,28 +1,26 @@
-const { getDogByName,getDogsAll, getDogByIdApi, getdogByIdDb, addDog } = require("../controllers/dogsControllers")
-
+//const { getDogByName,getDogsAll, getDogByIdApi, getDogByIdDb, addDog } = require("../controllers/dogsControllers")
+const dogsControllers = require("../controllers/dogsControllers")
 const dogsHandlers = {
 
-
     getDogs: async (req, res) => {
-        const { name } = req.body
+        const { name } = req.query
         try {
             let arrDogs;
-            name ? arrDogs = await getDogByName(name)
-                 : arrDogs = await getDogsAll()
+            name ? arrDogs = await dogsControllers.getDogByName(name)
+                 : arrDogs = await dogsControllers.getDogsAll()
             res.status(200).json(arrDogs)
             
         } catch (err) {
-            res.status(400).json({error: error.message})
+            res.status(400).json({error: err.message})
         }
     },
 
     getById: async (req,res) => {
-        const { id } = req.body
+        const { id } = req.params
         try {
             let dogById;
-            
-            parseInt(id) === NaN ? dogById = await getDogByIdApi(id)
-                                 : dogById = await getdogByIdDb(id)
+            !Number(id) ? dogById = await dogsControllers.getDogByIdDb(id)
+                            : dogById = await dogsControllers.getDogByIdApi(id)
 
             res.status(200).json(dogById);            
 
@@ -33,16 +31,17 @@ const dogsHandlers = {
 
     addDog: async (req,res) => {
         const { name, height, weight, life_span, temperament } = req.body
-        if(!name || !height || !weight || life_span || !temperament.length){
+        if(!name || !height || !weight || !life_span || !temperament.length){
             throw new Error("Faltan datos para gregar una nueva raza")
         }
         try {
-            const newDog = await addDog(req.body)
+            const newDog = await dogsControllers.addDog(name, height, weight, life_span, temperament)
             res.status(200).json(newDog)
         } catch (err) {
             res.status(400).json({error: err.message})
         }
     }
+    
 }
 
 module.exports = dogsHandlers;

@@ -45,52 +45,50 @@ const mapDogsDb = (dataDB) => {
     return data;
 }
 
+const dogsControllers = {
 
-
-const searchDogs = async (nameRaza) => {
-    const dataApi = await getApi(nameRaza);
-    const dataDb = await Dog.findAll({
-        where: {
-            name: {
-                [Op.iLike] :`%${nameRaza}%`
+    getDogByName: async (name) => {
+        const dataApi = await getApi(name);
+        const dataDb = await Dog.findAll({
+            where: {
+                name: {
+                    [Op.iLike] :`%${name}%`
+                }
+            },
+            include: {
+                model: Temperament,
+                attributes: ["name"]
             }
-        },
-        include: {
-            model: Temperament,
-            attributes: ["name"]
-        }
-        
-
-    })
-    return mapDogs(dataApi).concat(mapDogsDb(dataDb))
-}
-
-const getDogsAll = async () => {
-
-    let dataApi = await getApi();
-    let dataMap =  mapDogs(dataApi)
-    let dataDb = await Dog.findAll({
-        include: {
-            model: Temperament,
-            attributes: ["name"],
-            through: {
-                attributes: []
-            }
-        }
-    })
-    if(dataMap.lenght <= 0 && dataDb.lenght <= 0){
-        throw new Error("No found dog")
-    }
-    return dataMap.concat(mapDogsDb(dataDb));
-}
-
-const getById = async (id) => {
+            
     
-    let dogMap = {};
-    if(!!Number(id)){
+        })
+        return mapDogs(dataApi).concat(mapDogsDb(dataDb))
+    },
+
+    getDogAll: async () => {
+
+        let dataApi = await getApi();
+        let dataMap =  mapDogs(dataApi)
+        let dataDb = await Dog.findAll({
+            include: {
+                model: Temperament,
+                attributes: ["name"],
+                through: {
+                    attributes: []
+                }
+            }
+        })
+        if(dataMap.lenght <= 0 && dataDb.lenght <= 0){
+            throw new Error("No found dog")
+        }
+        return dataMap.concat(mapDogsDb(dataDb));
+
+    },
+
+    getDogByIdApi: async (id) => {
         const data = await getApi()
         const dogSearch = data.find(d => d.id === Number(id))
-        dogMap = {
+        const dogMap = {
             "id": dogSearch.id,
             "name": dogSearch.name,
             "weight": dogSearch.weight.metric,
@@ -99,7 +97,10 @@ const getById = async (id) => {
             "height": dogSearch.height.metric,
             "life_span": dogSearch.life_span
         }
-    }else{
+        return dogMap;
+    },
+
+    getDogByIdDb: async (id) => {
         let findDog = await Dog.findOne({
             where: {
                 id: id
@@ -112,7 +113,7 @@ const getById = async (id) => {
                 }
             }
         })
-        dogMap = {
+        const dogMap = {
             "id": findDog.id,
             "name": findDog.name,
             "weight": findDog.weight,
@@ -121,28 +122,17 @@ const getById = async (id) => {
             "height": findDog.height,
             "life_span": findDog.life_span
         }
-        
-        
-    }
+        return dogMap;        
+    },
 
-
-    return dogMap
-}
-
-const addDog = async (name, height, weight, life_span, temperament) => {
+    addDog: async (name, height, weight, life_span, temperament) => {
     
-    const newDog = await Dog.create({name, height, weight, life_span})
-    await newDog.addTemperaments(temperament)    
-    return newDog
+        const newDog = await Dog.create({name, height, weight, life_span})
+        await newDog.addTemperaments(temperament)    
+        return newDog
+    }
 }
 
 
 
-
-module.exports = {
-    getDogsAll,
-    searchDogs,
-    getById,
-    addDog
-
-}
+module.exports = dogsControllers
