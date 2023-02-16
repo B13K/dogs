@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.TEXT,
-      defaultValue: "img"
+      defaultValue: "https://imagenesparapeques.com/wp-content/uploads/2017/08/Bingo-y-Rolly-imagenes.png"
     }
   }, {
     timestamps: false
