@@ -1,0 +1,14 @@
+
+
+.card {
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 20rem;
+    height: 20rem;
+}
+
+.imgCard {
+    height: 5rem;
+    width: 5rem;
+}

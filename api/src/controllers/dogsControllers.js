@@ -65,7 +65,7 @@ const dogsControllers = {
         return mapDogs(dataApi).concat(mapDogsDb(dataDb))
     },
 
-    getDogAll: async () => {
+    getDogsAll: async () => {
 
         let dataApi = await getApi();
         let dataMap =  mapDogs(dataApi)
