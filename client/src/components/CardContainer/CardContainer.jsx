@@ -1,14 +1,26 @@
 
 import { useSelector } from "react-redux"
+import { useState } from "react"
+import { useEffect } from "react"
 import Card from "../Card/Card"
 import style from "./CardContainer.module.css"
 const CardContainer = () => {
 
-    const dogs = useSelector(state => state.dogs) //Traemos los dogs desde el store
+    const dogsAll = useSelector(state => state.dogs) //Traemos los dogs desde el store
+        
+    const [dogs, setDogs] = useState({
+        dogs:[],
+    })
+
+    useEffect( () => {
+        setDogs({...dogs, dogs: dogsAll})
+    },[dogsAll])
+    
+
     return (
         <div className={style.container}>
             {
-                dogs.map(e => <Card 
+                dogs.dogs.map(e => <Card 
                                 key={e.id}
                                 id = {e.id}
                                 name = {e.name}

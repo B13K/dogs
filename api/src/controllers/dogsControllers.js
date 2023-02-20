@@ -62,7 +62,7 @@ const dogsControllers = {
             
     
         })
-        return mapDogs(dataApi).concat(mapDogsDb(dataDb))
+        return mapDogsDb(dataDb).concat(mapDogs(dataApi))
     },
 
     getDogsAll: async () => {
@@ -81,7 +81,7 @@ const dogsControllers = {
         if(dataMap.lenght <= 0 && dataDb.lenght <= 0){
             throw new Error("No found dog")
         }
-        return dataMap.concat(mapDogsDb(dataDb));
+        return mapDogsDb(dataDb).concat(dataMap);
 
     },
 

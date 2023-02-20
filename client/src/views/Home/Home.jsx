@@ -16,8 +16,8 @@ const Home = () => {
 
     useEffect( () => {
         dispatch(getDogs())
-        console.log("Hola")
     }, [])
+
 
     
 

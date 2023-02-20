@@ -1,7 +1,7 @@
 
 import axios from "axios"
 
-import { GET_DOG, GET_DOGS, ADD_DOG } from "./types";
+import { GET_DOG, GET_DOGS, ADD_DOG, GET_FILTER_DOGS } from "./types";
 
 const url = "http://localhost:3001/dogs"
 
@@ -26,5 +26,14 @@ export const addDog = (newDog) => {
         //const apiData = await axios(`${url}`, newDog)
         //const msg = apiData.data;
         dispatch({type: ADD_DOG})
+    }
+}
+
+export const getFilterDogs = (name) => {
+    return async function(dispatch) {
+        const apiData = await axios.get(`${url}?name=${name}`);
+        const dogs = apiData.data;
+        dispatch({type: GET_FILTER_DOGS, payload: dogs})
+
     }
 }
