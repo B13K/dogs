@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { getFilterDogs } from "../../redux/actions"
+import { getSearchDogs } from "../../redux/actions"
 
 
 
@@ -20,7 +20,7 @@ const SearchBar = () => {
     return (
         <div>
             <input type="search" onChange={searchHandler} />
-            <button onClick={() => dispatch(getFilterDogs(search.name))}>Search</button>
+            <button onClick={() => dispatch(getSearchDogs(search.name))}>Search</button>
 
         </div>
     )

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 
 const Form = () => {
@@ -92,11 +91,7 @@ const Form = () => {
         
     }
 
-    useEffect( async () => {
-        const dataNose = await axios("http://localhost:3001/dogs?name=body")
-        console.log(dataNose.data)
-    }, [])
-
+   
     return (
         <div>
             <form onSubmit={handleSubmit}>
