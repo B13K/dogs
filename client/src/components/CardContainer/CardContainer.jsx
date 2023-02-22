@@ -37,7 +37,7 @@ const CardContainer = () => {
     // Funcion para ordenar por nombre o por peso
     const createSort = (orderBy) => {
         const sortDogsAll = [...dogs]
-
+        console.log(dogs)
         switch (orderBy.sort){
             case "asc":
                 sortDogsAll.sort( (a,b) => {
@@ -83,8 +83,7 @@ const CardContainer = () => {
                                 key={e.id}
                                 id = {e.id}
                                 name = {e.name}
-                                height = {e.height}
-                                weight = {e.weight}
+                                height = {e.heightMax}
                                 temperament = {e.temperament}
                                 image = {e.image}
                     

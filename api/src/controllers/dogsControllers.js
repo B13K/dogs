@@ -20,16 +20,24 @@ const mapDogs = (id, name, weight, temperament, image) => {
 */
 
 const mapDogs = (dataApi) => {
-    let data = dataApi.map( d => ({
-                                    id: d.id,     
-                                    name: d.name,
-                                    height: d.height.metric,
-                                    weight: d.weight.metric,
-                                    temperament: d.temperament?.
-                                                            split(",")
-                                                            .map(e => e.trim()),
-                                    image: d.image?.url
-                                }))
+    let data = dataApi.map( d => {
+
+        let [minHeight, maxHeight] = d.height.metric.trim()
+                                                      .split("-");
+        if(maxHeight === undefined) maxHeight = minHeight
+        // const [minWeight, maxWight] = d.weight.metric.trim()
+        //                                             .split("-");
+
+        return {
+            id: d.id,     
+            name: d.name,
+            heightMax:  maxHeight,
+            temperament: d.temperament?.
+                                        split(",")
+                                        .map(e => e.trim()),
+            image: d.image?.url
+                                    }
+                                })
     return data;
 }
 
@@ -37,8 +45,7 @@ const mapDogsDb = (dataDB) => {
     let data = dataDB.map( d => ({
         id: d.id,     
         name: d.name,
-        height: d.height,
-        weight: d.weight,
+        heightMax: d.heightMax,
         temperament: d.Temperaments.map(e => e.name),
         image: d.image
     }))
@@ -88,14 +95,18 @@ const dogsControllers = {
     getDogByIdApi: async (id) => {
         const data = await getApi()
         const dogSearch = data.find(d => d.id === Number(id))
+        const [minHeight, maxHeight] = dogSearch.weight.metric.trim().split("-")
+        const [minWeight, maxWeight] = dogSearch.weight.metric.trim().split("-")
         const dogMap = {
             "id": dogSearch.id,
             "name": dogSearch.name,
-            "weight": dogSearch.weight.metric,
+            "heightMin": minHeight,
+            "heightMax": maxHeight,
+            "weightMin": minWeight, 
+            "weightMax": maxWeight, 
             "temperament": dogSearch.temperament.split(",").map(e => e.trim()),
             "image": dogSearch.image.url,
-            "height": dogSearch.height.metric,
-            "life_span": dogSearch.life_span
+            "life": dogSearch.life_span
         }
         return dogMap;
     },
