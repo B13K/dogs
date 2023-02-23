@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux"
+import { sortDogs } from "../../redux/actions";
 
 
 
-const SortBar = ({orderBy}) => {
+const SortBar = () => {
+
+    const dispatch = useDispatch()
 
     const [ order, setOrder ] = useState(
         {
@@ -15,14 +19,14 @@ const SortBar = ({orderBy}) => {
     const orderHandler = (e) => {
         const { name, value } = e.target
         setOrder({...order, [name]: value})
-        orderBy({...order, [name]: value})
+        dispatch(sortDogs({...order, [name]: value}))
     }
 
     return (
         <div>
             <div>
                 <select name="sort" value={order.sort} onChange={orderHandler}>
-                    <option value="default">Ninguno</option>
+                    <option value="default">Default</option>
                     <option value="asc">Ascendente</option>
                     <option value="desc">Descendente</option>
                 </select>
@@ -30,7 +34,7 @@ const SortBar = ({orderBy}) => {
             <div>
                 <select name="type" value={order.type} onChange={orderHandler}>
                     <option value="name">Nombre</option>
-                    <option value="weight">Peso</option>
+                    <option value="weightMax">Peso</option>
                 </select>
 
             </div>

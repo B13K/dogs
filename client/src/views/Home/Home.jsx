@@ -1,7 +1,9 @@
 import CardContainer from "../../components/CardContainer/CardContainer"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getDogs } from "../../redux/actions"
+import { getDogs, getTemperaments } from "../../redux/actions"
+import FilterBar from "../../components/FilterBar/FilterBar";
+import SortBar from "../../components/SortBar/SortBar";
 
 
 const Home = () => {
@@ -16,13 +18,20 @@ const Home = () => {
 
     useEffect( () => {
         dispatch(getDogs())
+        dispatch(getTemperaments())
     }, [dispatch])
 
 
     
 
     return (
-        <CardContainer/>
+        <div>
+            <div>
+                <FilterBar/>
+                <SortBar />
+            </div>
+            <CardContainer/>
+        </div>
     )
 }
 

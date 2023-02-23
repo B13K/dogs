@@ -1,9 +1,10 @@
 
 import axios from "axios"
 
-import { GET_DOG, GET_DOGS, ADD_DOG,  } from "./types";
+import {  GET_DOGS, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS,  } from "./types";
 
 const url = "http://localhost:3001/dogs"
+const urlTemp = "http://localhost:3001/temperaments"
 
 export const getDogs = () => {
     return async function(dispatch) {
@@ -22,26 +23,38 @@ export const getSearchDogs = (name) => {
     }
 }
 
-export const getDogById = (id) => {
-    console.log("GetDogByID")
+// export const getDogById = (id) => {
+//     console.log("GetDogByID")
+//     return async function(dispatch) {
+//         const apiData = await axios.get(`${url}/${id}`)
+//         const dog = apiData.data;
+//         dispatch({type: GET_DOG, payload: dog})
+//     }
+// }
+
+// export const addDog = (newDog) => {
+//     return async function(dispatch) {
+//         //const apiData = await axios(`${url}`, newDog)
+//         //const msg = apiData.data;
+//         dispatch({type: ADD_DOG})
+//     }
+// }
+
+export const getTemperaments = () => {
     return async function(dispatch) {
-        const apiData = await axios.get(`${url}/${id}`)
-        const dog = apiData.data;
-        dispatch({type: GET_DOG, payload: dog})
+        const apiData = await axios.get(`${urlTemp}`)
+        const temperaments = apiData.data.map( t => {
+            return t.name
+        })
+        dispatch({type: GET_TEMPERAMENTS, payload: temperaments})
     }
 }
 
-export const addDog = (newDog) => {
-    return async function(dispatch) {
-        //const apiData = await axios(`${url}`, newDog)
-        //const msg = apiData.data;
-        dispatch({type: ADD_DOG})
-    }
+
+export const sortDogs = (sort) => {
+    return {type: SORT_DOGS, payload: sort};
 }
 
-/*
-export const orderBy = (sort) => {
-    console.log("orderBy")
-    return {type: SORT_DOGS, payload: sort}
+export const filterDogs = (filter) => {
+    return { type: FILTER_DOGS, payload: filter };
 }
-*/

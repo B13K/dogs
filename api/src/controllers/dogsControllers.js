@@ -22,16 +22,18 @@ const mapDogs = (id, name, weight, temperament, image) => {
 const mapDogs = (dataApi) => {
     let data = dataApi.map( d => {
 
-        let [minHeight, maxHeight] = d.height.metric.trim()
-                                                      .split("-");
-        if(maxHeight === undefined) maxHeight = minHeight
-        // const [minWeight, maxWight] = d.weight.metric.trim()
-        //                                             .split("-");
+        let [minWeight, maxWeight] = d.weight.metric.trim()
+                                                    .split("-");
+
+        
+        // let [minHeight, maxHeight] = d.height.metric.trim()
+        //                                               .split("-");
+        // if(maxHeight === undefined) maxHeight = minHeight
 
         return {
             id: d.id,     
             name: d.name,
-            heightMax:  maxHeight,
+            weightMax:  maxWeight,
             temperament: d.temperament?.
                                         split(",")
                                         .map(e => e.trim()),
@@ -45,7 +47,7 @@ const mapDogsDb = (dataDB) => {
     let data = dataDB.map( d => ({
         id: d.id,     
         name: d.name,
-        heightMax: d.heightMax,
+        weightMax: d.weightMax,
         temperament: d.Temperaments.map(e => e.name),
         image: d.image
     }))

@@ -5,14 +5,15 @@ import { useEffect } from "react"
 import Card from "../Card/Card"
 import style from "./CardContainer.module.css"
 import Pagination from "../Pagination/Pagination"
-import SortBar from "../SortBar/SortBar"
 
 
 const CardContainer = () => {
 
-    const dogsAll = useSelector(state => state.dogs) //Traemos los dogs desde el store sin modificar
+    const dogsAll = useSelector(state => state.dogs) // Traemos los dogs desde el store sin modificar
+    const sortDogs = useSelector(state => state.sortDogs) // traemos las condiciones del sort
+    const filterDogs = useSelector(state => state.filterDogs) // traemos las condiciones del filtrado
         
-    const [dogs, setDogs] = useState([])
+    const [ dogs, setDogs ] = useState([])
     
     
     //Paginacion
@@ -28,16 +29,61 @@ const CardContainer = () => {
 
     
 
-    useEffect( () => {
+    useEffect( () => {        
         setDogs(dogsAll)
         setCurrentPage(1) //Se posiciona en la pagina uno cada vez que realiza un filtro
     },[dogsAll])
 
+    useEffect( () => {
+        let data = filterDB(dogsAll, filterDogs.db)
+        data = filterTemperaments(data, filterDogs.temperament)
+        data = createSort(data, sortDogs)
+        setDogs(data)
+        setCurrentPage(1)
+    }, [filterDogs])
+
+    useEffect( () => {
+        let data = createSort(dogs, sortDogs)
+        setDogs(data)
+        setCurrentPage(1)
+    }, [sortDogs])
+
+
+    const filterTemperaments = (data, filter) => {
+        console.log(filter)
+        console.log(data)
+        const newDogsFilter = [...data];
+        if(filter === "all"){
+            return newDogsFilter;
+        }
+        const newDogsContains = newDogsFilter.filter(d => {
+            if(d.temperament?.includes(filter)){
+                return true
+            } else {
+                return false
+            }
+        })
+        return newDogsContains;
+    }
+
+    const filterDB = (data, filter) => {
+        let newDogFilter = []
+        switch(filter){
+            case "api":
+                newDogFilter = [...data].filter(d => !!Number(d.id))
+                return newDogFilter;
+            case "db":
+                newDogFilter = [...data].filter(d => !Number(d.id))
+                return newDogFilter;
+            default:
+                return data;
+        }
+    }
 
     // Funcion para ordenar por nombre o por peso
-    const createSort = (orderBy) => {
-        const sortDogsAll = [...dogs]
-        console.log(dogs)
+    const createSort = (data, orderBy) => {
+        console.log(orderBy)
+        const sortDogsAll = [...data]
         switch (orderBy.sort){
             case "asc":
                 sortDogsAll.sort( (a,b) => {
@@ -49,9 +95,7 @@ const CardContainer = () => {
                     }
                     return 0
                 });
-                
-                setDogs(sortDogsAll)
-                break;
+                return sortDogsAll
             case "desc":
                 sortDogsAll.sort( (a,b) => {
                     if(a[orderBy.type] > b[orderBy.type]){
@@ -62,10 +106,9 @@ const CardContainer = () => {
                     }
                     return 0
                 });
-                setDogs(sortDogsAll)
-                break;
+                return sortDogsAll
             default:
-                setDogs([...dogsAll])
+                return sortDogsAll
                 
         }
 
@@ -75,7 +118,6 @@ const CardContainer = () => {
     return (
         <div className={style.container}>
             <div>
-                <SortBar orderBy={createSort}/>
                 <Pagination dogsPerPage={dogsPerPage} totalDogs = {dogs.length} paginate={paginate}/>
             </div>
             {
@@ -83,7 +125,7 @@ const CardContainer = () => {
                                 key={e.id}
                                 id = {e.id}
                                 name = {e.name}
-                                height = {e.heightMax}
+                                weight = {e.weightMax}
                                 temperament = {e.temperament}
                                 image = {e.image}
                     
