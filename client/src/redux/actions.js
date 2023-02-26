@@ -27,7 +27,6 @@ export const getDogById = (id) => {
     return async function(dispatch) {
         const apiData = await axios.get(`${url}/${id}`)
         const dog = apiData.data;
-        console.log(dog)
         dispatch({type: GET_DOG, payload: dog})
     }
 }

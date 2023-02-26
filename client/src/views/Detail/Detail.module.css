@@ -1,0 +1,72 @@
+
+
+.detailContainer {
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+}
+
+.detailImg {
+    /* background-color: green; */
+    flex: 2;
+    align-items: right;
+    justify-content: right;
+}
+
+.detailImg img {
+    background-color: green;
+    height: 40rem;
+    width: 50rem;
+    border-radius: 1rem;
+}
+
+.detailData {
+    flex: 1;
+    /* background-color: red; */
+    display: flex;
+}
+
+.detailSpace1 {
+    flex: 1;
+    flex-direction: column;
+    /* background-color: grey; */
+}
+
+.detailDogData {
+    background-color: red;
+    flex: 2;
+    display:flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+}
+
+
+.detailDivData {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.detailDivData label {
+    font-weight: 700;
+    font-size: 1.1rem;    
+}
+
+.detailDivData p {
+    font-size: 1rem;
+}
+
+.detailDivTemperament {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.detailTemperament {
+    /* background-color: red; */
+    margin: 0 1rem;
+}
