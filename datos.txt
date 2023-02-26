@@ -1,0 +1,17 @@
+
+
+mobile: 375px
+desktop: 1440px
+
+colores
+
+almost white: hsl(0, 0%, 98%);
+medium gray: hsl(0, 0%, 41%);
+almost black: hsl(0, 0%, 8%);
+
+font size (paragrapg): 18px
+
+font
+
+- family: [epilogue](https://fonts.google.com/specimen/Epilogue)
+- weight 500, 700

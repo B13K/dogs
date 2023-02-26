@@ -1,4 +1,4 @@
-
+import style from "./Pagination.module.css"
 
 const Pagination = ({dogsPerPage, totalDogs, paginate}) => {
 
@@ -10,19 +10,15 @@ const Pagination = ({dogsPerPage, totalDogs, paginate}) => {
     }
 
     return (
-        <nav>
-            <ul>
-                {
-                    pageNumbers.map( number => (
-                        <li key={number}>
-                            <button onClick={() => paginate(number)}>
-                                {number}
-                            </button>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
+        <div className={style.paginationContainer}>
+            {
+                pageNumbers.map( (number, i) => (
+                        <button key={i} onClick={() => paginate(number)}>
+                            {number}
+                        </button>
+                ))
+            }
+        </div>
     )
 }
 

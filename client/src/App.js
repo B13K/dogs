@@ -21,7 +21,7 @@ function App() {
 
       <Route path="/home"   render={() => <Home/>}/>
 
-      <Route exact path="/detail">
+      <Route path="/detail">
         <Detail/>
       </Route>
 

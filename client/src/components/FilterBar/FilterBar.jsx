@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { filterDogs } from "../../redux/actions"
+import style from "./FilterBar.module.css"
 
 
 
@@ -30,10 +31,10 @@ const FilterBar = () => {
 
 
     return (
-        <div>
+        <div className={style.filterBarContainer}>
             <div>
                 <select name="temperament" value={filter.temperament} onChange={filterHandler}>
-                    <option value="all">Todos</option>
+                    <option value="all">All</option>
                     {
                         temperaments.map((t,i) => (
                             <option key={i} value={t}>{t}</option>
@@ -43,7 +44,7 @@ const FilterBar = () => {
             </div>
             <div>
                 <select name="db" value={filter.db} onChange={filterHandler}>
-                    <option value="all">Todos</option>
+                    <option value="all">All</option>
                     <option value="api">Api</option>
                     <option value="db">DataBase</option>
                 </select>

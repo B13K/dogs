@@ -4,8 +4,15 @@
     margin: 10px;
     border: 1px solid black;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 15px;
-    flex-wrap: wrap;
     gap: 1em;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }

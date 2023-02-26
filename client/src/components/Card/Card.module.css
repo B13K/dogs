@@ -1,14 +1,76 @@
 
 
-.card {
-    margin: 10px;
-    border: 1px solid black;
+.cardContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    margin-bottom: 2rem;
+    border: 0.1rem solid black;
     border-radius: 10px;
     width: 20rem;
     height: 20rem;
+    align-items: center;    
 }
 
-.imgCard {
-    height: 5rem;
-    width: 5rem;
+/* .cardTemperament {
+    display: none;
+}
+
+
+.cardContainer:hover p.cardTemperament {    
+    background-color: rgba(63, 195, 128, 0.6) !important;;
+} */
+
+
+.cardContainer:hover  {    
+    /* background-color: rgb(11,13,14, 0.7); */
+    background-color: rgba(63, 195, 128, 0.6) ;
+}
+
+
+.cardContainer .cardImg {
+    position: absolute;
+    height: 10rem;
+    width: 15rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: -1;
+}
+
+
+.cardContainer .cardName {
+    background-color: white;
+    color: black;
+    position: absolute;
+    top: -2rem;
+    border-radius: 0.5rem;
+    border-width: 0.2rem;
+    border-color: black;
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+    height: 2rem;
+    width: auto;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
+}
+
+.cardContainer .divWeight{
+    background-color: white;
+    position: absolute;
+    bottom: -1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border-width: 0.2rem;
+    border-color: black;
+    box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
+}
+
+.cardContainer .divWeight p {
+    padding: 0 1rem;
+    font-weight: 600;
 }

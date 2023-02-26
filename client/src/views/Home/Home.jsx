@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getDogs, getTemperaments } from "../../redux/actions"
 import FilterBar from "../../components/FilterBar/FilterBar";
 import SortBar from "../../components/SortBar/SortBar";
+import style from "./Home.module.css"
 
 
 const Home = () => {
@@ -25,8 +26,8 @@ const Home = () => {
     
 
     return (
-        <div>
-            <div>
+        <div className={style.homeContainer}>
+            <div className={style.filterSort}>
                 <FilterBar/>
                 <SortBar />
             </div>

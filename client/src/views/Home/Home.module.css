@@ -1,0 +1,26 @@
+
+.homeContainer {
+    /* background-color: blue; */
+    /* position: fixed; */
+}
+
+.homeContainer .filterSort {
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+ .homeContainer select {
+    text-align: center;
+    color: black;
+    font-weight: 400;
+    font-size: 1.1rem;
+    border-radius: 0.7rem;
+    border: 0.2rem;
+    margin: 1rem;
+    box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
+}

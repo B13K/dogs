@@ -1,0 +1,54 @@
+
+.landingContent {
+    display: flex;
+    height: 100vh;
+
+}
+
+.landingBloque1 {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.landingBloque2 {
+    flex: 1;
+    background-color: #ff4848;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonLanding {
+    display: inline-block;
+    padding: 20px;
+    background-color: #ff4848;
+    background-image: linear-gradient(90deg, #ff4848 50%, #ff4848 50%);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
+    border: 10px solid #8bc34a;
+}
+
+.buttonLanding:hover {
+    background-color: #f00;
+}
+
+.buttonLanding img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.buttonLanding:hover img {
+    transform: scale(1.2);
+}

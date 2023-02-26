@@ -1,7 +1,7 @@
 
 import axios from "axios"
 
-import {  GET_DOGS, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS,  } from "./types";
+import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS,  } from "./types";
 
 const url = "http://localhost:3001/dogs"
 const urlTemp = "http://localhost:3001/temperaments"
@@ -23,14 +23,14 @@ export const getSearchDogs = (name) => {
     }
 }
 
-// export const getDogById = (id) => {
-//     console.log("GetDogByID")
-//     return async function(dispatch) {
-//         const apiData = await axios.get(`${url}/${id}`)
-//         const dog = apiData.data;
-//         dispatch({type: GET_DOG, payload: dog})
-//     }
-// }
+export const getDogById = (id) => {
+    return async function(dispatch) {
+        const apiData = await axios.get(`${url}/${id}`)
+        const dog = apiData.data;
+        console.log(dog)
+        dispatch({type: GET_DOG, payload: dog})
+    }
+}
 
 // export const addDog = (newDog) => {
 //     return async function(dispatch) {

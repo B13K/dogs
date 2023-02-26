@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { getSearchDogs } from "../../redux/actions"
-
+import style from "./SearchBar.module.css"
 
 
 const SearchBar = () => {
@@ -18,7 +18,7 @@ const SearchBar = () => {
     }
 
     return (
-        <div>
+        <div className={style.searchBarContainer}>
             <input type="search" onChange={searchHandler} />
             <button onClick={() => dispatch(getSearchDogs(search.name))}>Search</button>
 

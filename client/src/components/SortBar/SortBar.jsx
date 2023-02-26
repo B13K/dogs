@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { sortDogs } from "../../redux/actions";
+import style from "./SortBar.module.css"
 
 
 
@@ -23,18 +24,18 @@ const SortBar = () => {
     }
 
     return (
-        <div>
+        <div className={style.sortBarContainer}>
             <div>
                 <select name="sort" value={order.sort} onChange={orderHandler}>
                     <option value="default">Default</option>
-                    <option value="asc">Ascendente</option>
-                    <option value="desc">Descendente</option>
+                    <option value="asc">Ascendent</option>
+                    <option value="desc">Descendent</option>
                 </select>
             </div>
             <div>
                 <select name="type" value={order.type} onChange={orderHandler}>
-                    <option value="name">Nombre</option>
-                    <option value="weightMax">Peso</option>
+                    <option value="name">Name</option>
+                    <option value="weightMax">Weight</option>
                 </select>
 
             </div>

@@ -1,0 +1,31 @@
+
+.searchBarContainer {
+    margin: 0.3rem;
+}
+
+.searchBarContainer input {
+    padding:0.5rem;
+    border-color: hsl(0, 0%, 41%);
+    border-radius: 0.7rem;
+    border-width: 0.1rem;
+    height: 1.5rem;
+    width: 10rem;
+    margin-right: 1rem;
+    font-size: 1.1rem;
+
+}
+
+.searchBarContainer button {
+    background-color: hsl(0, 0%, 98%);
+    border-radius: 0.7rem;
+    border-width: 0.1rem;
+    border-color: hsl(0, 0% 4,1%);
+    width: auto;
+    height: 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+.searchBarContainer button:hover {
+    background-color: hsl(0, 0%, 8%);
+    color: hsl(0, 0%, 98%);
+}
