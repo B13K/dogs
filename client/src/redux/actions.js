@@ -1,7 +1,7 @@
 
 import axios from "axios"
 
-import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS,  } from "./types";
+import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS, RESET_FILTER,  } from "./types";
 
 const url = "http://localhost:3001/dogs"
 const urlTemp = "http://localhost:3001/temperaments"
@@ -42,18 +42,24 @@ export const getDogById = (id) => {
 export const getTemperaments = () => {
     return async function(dispatch) {
         const apiData = await axios.get(`${urlTemp}`)
-        const temperaments = apiData.data.map( t => {
-            return t.name
-        })
+        // const temperaments = apiData.data.map( t => {
+        //     return t.name
+        // })
+        const temperaments = apiData.data
         dispatch({type: GET_TEMPERAMENTS, payload: temperaments})
     }
 }
 
 
 export const sortDogs = (sort) => {
+    console.log(sort)
     return {type: SORT_DOGS, payload: sort};
 }
 
 export const filterDogs = (filter) => {
     return { type: FILTER_DOGS, payload: filter };
+}
+
+export const resetDogsFilter = () => {
+    return {type: RESET_FILTER}
 }

@@ -21,7 +21,7 @@ const CardContainer = () => {
     
     //Paginacion
     const [ currentPage, setCurrentPage ] = useState(1) //Pagina actual
-    const [ dogsPerPage ] = useState(9) //Cuartos dogs habra por pagina
+    const [ dogsPerPage ] = useState(8) //Cuartos dogs habra por pagina
 
     const indexOfLastDogs = currentPage * dogsPerPage;
     const indexOfFirstDogs = indexOfLastDogs - dogsPerPage
@@ -30,19 +30,10 @@ const CardContainer = () => {
     const paginate = pageNumber => setCurrentPage(pageNumber)
     //End Pagination
 
-    
 
-    // useEffect( () => {        
-    //     setDogs(dogsAll)
-    //     setCurrentPage(1) //Se posiciona en la pagina uno cada vez que realiza un filtro
-    // },[dogsAll,])
 
     useEffect( () => {
-        // let data = filterDB(dogsAll, filterDogs.db)
-        // data = filterTemperaments(data, filterDogs.temperament)
-        // data = createSort(data, sortDogs)
-        // setDogs(data)
-        // setCurrentPage(1)
+       
         filterSort();
     }, [dogsAll, filterDogs])
 
@@ -97,10 +88,10 @@ const CardContainer = () => {
         switch (orderBy.sort){
             case "asc":
                 sortDogsAll.sort( (a,b) => {
-                    if(Number(a[orderBy.type]) > Number(b[orderBy.type])){
+                    if((a[orderBy.type]) > (b[orderBy.type])){
                         return 1
                     }                        
-                    if(Number(a[orderBy.type]) < Number(b[orderBy.type])){
+                    if((a[orderBy.type]) < (b[orderBy.type])){
                         return -1
                     }
                     return 0
@@ -108,10 +99,10 @@ const CardContainer = () => {
                 return sortDogsAll
             case "desc":
                 sortDogsAll.sort( (a,b) => {
-                    if(Number(a[orderBy.type]) > Number(b[orderBy.type])){
+                    if((a[orderBy.type]) > (b[orderBy.type])){
                         return -1
                     }                        
-                    if(Number(a[orderBy.type]) < Number(b[orderBy.type])){
+                    if((a[orderBy.type]) < (b[orderBy.type])){
                         return 1
                     }
                     return 0

@@ -21,7 +21,6 @@ const Detail = () => {
     })
 
     useEffect( () => {
-        console.log(dog)
         setDog(dogId)
     }, [dogId])
     
@@ -36,7 +35,7 @@ const Detail = () => {
                 </div>
                 <div className={style.detailDivData}>
                     <label>Height:</label>
-                    <p>{`${dog.heightMin} - ${dog.heightMax} Mtrs`}</p>
+                    <p>{`${dog.heightMin} - ${dog.heightMax} cm`}</p>
                 </div>
                 <div className={style.detailDivData}>
                     <label>Weight:</label>

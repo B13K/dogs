@@ -1,15 +1,16 @@
 
 
 .cardContainer {
+    background-color: var(--neutral-color);
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    /* margin: 1rem; */
     margin-bottom: 2rem;
     border: 0.1rem solid black;
     border-radius: 10px;
     width: 20rem;
-    height: 20rem;
+    height: 18rem;
     align-items: center;    
 }
 
@@ -31,11 +32,11 @@
 
 .cardContainer .cardImg {
     position: absolute;
-    height: 10rem;
-    width: 15rem;
+    height: 15rem;
+    width: 20rem;
     top: 50%;
     transform: translate(0, -50%);
-    z-index: -1;
+    z-index: 0;
 }
 
 

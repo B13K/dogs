@@ -1,7 +1,7 @@
 import CardContainer from "../../components/CardContainer/CardContainer"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getDogs, getTemperaments } from "../../redux/actions"
+import { getDogs, getTemperaments, resetDogsFilter } from "../../redux/actions"
 import FilterBar from "../../components/FilterBar/FilterBar";
 import SortBar from "../../components/SortBar/SortBar";
 import style from "./Home.module.css"
@@ -20,6 +20,7 @@ const Home = () => {
     useEffect( () => {
         dispatch(getDogs())
         dispatch(getTemperaments())
+        dispatch(resetDogsFilter())
     }, [dispatch])
 
 

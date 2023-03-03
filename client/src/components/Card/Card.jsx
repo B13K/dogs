@@ -15,7 +15,7 @@ const Card = (props) => {
             </div>
             <div>
                 {
-                    props.temperament.map((t,i) => (<p key={i} className={style.cardTemperament}>{t}</p>))
+                    props.temperament?.map((t,i) => (<p key={i} className={style.cardTemperament}>{t}</p>))
                 }
             </div>
             <img className={style.cardImg} src={props.image} alt="Hola" />

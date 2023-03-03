@@ -1,5 +1,7 @@
 //const { getDogByName,getDogsAll, getDogByIdApi, getDogByIdDb, addDog } = require("../controllers/dogsControllers")
 const dogsControllers = require("../controllers/dogsControllers")
+
+
 const dogsHandlers = {
 
     getDogs: async (req, res) => {
@@ -11,6 +13,7 @@ const dogsHandlers = {
             res.status(200).json(arrDogs)
             
         } catch (err) {
+            console.log(err)
             res.status(400).json({error: err.message})
         }
     },
@@ -25,19 +28,22 @@ const dogsHandlers = {
             res.status(200).json(dogById);            
 
         } catch (err) {
+            console.log(err)
             res.status(400).json({error: err.message})
         }
     },
 
     addDog: async (req,res) => {
-        const { name, height, weight, life_span, temperament } = req.body
-        if(!name || !height || !weight || !life_span || !temperament.length){
-            throw new Error("Faltan datos para gregar una nueva raza")
-        }
+        const { name, heightMin, heightMax, weightMin, weightMax, life, temperaments } = req.body
+        
         try {
-            const newDog = await dogsControllers.addDog(name, height, weight, life_span, temperament)
-            res.status(200).json(newDog)
+            if(!name || !heightMin || !heightMax || !weightMin || !weightMax || !life){
+                throw new Error("Faltan datos para gregar una nueva raza")
+            }
+            const newDog = await dogsControllers.addDog(name, heightMin, heightMax, weightMin, weightMax, life, temperaments)
+            res.status(200).json("create dog successfull")
         } catch (err) {
+            console.log(err.message)
             res.status(400).json({error: err.message})
         }
     }

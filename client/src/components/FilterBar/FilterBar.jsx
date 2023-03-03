@@ -37,7 +37,7 @@ const FilterBar = () => {
                     <option value="all">All</option>
                     {
                         temperaments.map((t,i) => (
-                            <option key={i} value={t}>{t}</option>
+                            <option key={i} value={t.name}>{t.name}</option>
                         ))
                     }
                 </select>

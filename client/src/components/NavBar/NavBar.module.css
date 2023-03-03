@@ -2,19 +2,34 @@
 
 .navBarContainer {
     /* background-color: rgb(0, 0, 0, 0.1); */
-    background-color: rgba(63, 195, 128, 0.8);
+    /* background-color: rgba(63, 195, 128, 0.8); */
+    background-color: var(--primary-color);
     margin: 10px;
     padding: 0 2rem;
     height: 2.5rem;
     align-items: center;
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     border-radius: 15px;
-    border: 1px solid black;
+    border: 0.1rem solid var(--outline-color);
     box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
 
 }
+
+.navBarContainer .navBarIcon {
+    width: 4rem;
+    position: absolute;
+    left: 50%;
+}
+
+/* .navBarContainer object {
+    width: 4rem;
+    position: absolute;
+    left: 50%;
+    color: red;
+} */
 
 .navBarContainer .menu {
     display: flex;
@@ -23,7 +38,7 @@
 }
 
 .navBarContainer .link {
-    color: hsl(0, 0%, 41%);;
+    color: var(--secondary-color);
     text-decoration: none;
     margin: 0 1rem 0 0;
     font-size: 1.1rem;
@@ -31,7 +46,7 @@
 }
 
 .navBarContainer .link:hover {
-    color: hsl(0, 0%, 8%);
+    color: var(--tertiary-color);
     /*font-size: 1.5rem;*/ /* esto modifica el tamaño y mueve las pañabras*/
     transform: scale(1.2);
 }

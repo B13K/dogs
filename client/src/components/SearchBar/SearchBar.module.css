@@ -5,27 +5,30 @@
 
 .searchBarContainer input {
     padding:0.5rem;
-    border-color: hsl(0, 0%, 41%);
+    border-color: var(--secundary-color);
     border-radius: 0.7rem;
     border-width: 0.1rem;
     height: 1.5rem;
     width: 10rem;
     margin-right: 1rem;
     font-size: 1.1rem;
+    color: var(--secundary-color);
 
 }
 
 .searchBarContainer button {
-    background-color: hsl(0, 0%, 98%);
+    background-color: var(--background-color);
     border-radius: 0.7rem;
     border-width: 0.1rem;
-    border-color: hsl(0, 0% 4,1%);
+    border-color: var(--secundary-color);
     width: auto;
     height: 1.5rem;
     text-align: center;
     font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secundary-color);
 }
 .searchBarContainer button:hover {
-    background-color: hsl(0, 0%, 8%);
+    background-color: var(--tertiary-color);
     color: hsl(0, 0%, 98%);
 }

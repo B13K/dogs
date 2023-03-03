@@ -7,3 +7,5 @@ export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS"
 export const DOGS_FILTER = "DOGS_FILTER";
 export const SORT_DOGS = "SORT_DOGS";
 export const FILTER_DOGS = "FILTER_DOGS"
+
+export const RESET_FILTER = "RESET_FILTER"

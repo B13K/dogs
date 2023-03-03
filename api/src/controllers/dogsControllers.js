@@ -13,18 +13,33 @@ const getApi = async (nameRaza) => {
              : response = await axios.get(`${URL}?api_key=${API_KEY}`) //Trae los datos de la base  externa
     return response.data
 }
-/*
-const mapDogs = (id, name, weight, temperament, image) => {
-    return {id, name, weight, temperament, image}
+
+
+const inchToCen = (num) => {
+    return Math.floor(num*2.54)
 }
-*/
+
+const filterByName = (data, name) => {
+    const filter = data.filter(d => d.name.toLowerCase().includes(name.toLowerCase()))
+    return filter;
+}
 
 const mapDogs = (dataApi) => {
     let data = dataApi.map( d => {
+        let [minWeight, maxWeight] = ["", ""]
 
-        let [minWeight, maxWeight] = d.weight.metric.trim()
+
+        if(d.weight.metric === "NaN") {
+            [minWeight, vacio, maxWeight] = d.weight.imperial.trim()
+                                                    .split(" ");
+            minWeight = inchToCen(minWeight);
+            maxWeight = inchToCen(maxWeight)
+        }
+        else{
+            [minWeight, maxWeight] = d.weight.metric.trim()
                                                     .split("-");
-
+        }
+        if(maxWeight === undefined) maxWeight = minWeight
         
         // let [minHeight, maxHeight] = d.height.metric.trim()
         //                                               .split("-");
@@ -33,7 +48,7 @@ const mapDogs = (dataApi) => {
         return {
             id: d.id,     
             name: d.name,
-            weightMax:  maxWeight,
+            weightMax:  Number(maxWeight),
             temperament: d.temperament?.
                                         split(",")
                                         .map(e => e.trim()),
@@ -57,7 +72,8 @@ const mapDogsDb = (dataDB) => {
 const dogsControllers = {
 
     getDogByName: async (name) => {
-        const dataApi = await getApi(name);
+        const dataApi = await getApi();
+        const filterDataApi = filterByName(dataApi, name)
         const dataDb = await Dog.findAll({
             where: {
                 name: {
@@ -71,12 +87,13 @@ const dogsControllers = {
             
     
         })
-        return mapDogsDb(dataDb).concat(mapDogs(dataApi))
+        return mapDogsDb(dataDb).concat(mapDogs(filterDataApi))
     },
 
     getDogsAll: async () => {
 
         let dataApi = await getApi();
+        console.log(dataApi.length)
         let dataMap =  mapDogs(dataApi)
         let dataDb = await Dog.findAll({
             include: {
@@ -97,7 +114,7 @@ const dogsControllers = {
     getDogByIdApi: async (id) => {
         const data = await getApi()
         const dogSearch = data.find(d => d.id === Number(id))
-        const [minHeight, maxHeight] = dogSearch.weight.metric.trim().split("-")
+        const [minHeight, maxHeight] = dogSearch.height.metric.trim().split("-")
         const [minWeight, maxWeight] = dogSearch.weight.metric.trim().split("-")
         const dogMap = {
             "id": dogSearch.id,
@@ -106,7 +123,7 @@ const dogsControllers = {
             "heightMax": maxHeight,
             "weightMin": minWeight, 
             "weightMax": maxWeight, 
-            "temperament": dogSearch.temperament.split(",").map(e => e.trim()),
+            "temperament": dogSearch.temperament?.split(",").map(e => e.trim()),
             "image": dogSearch.image.url,
             "life": dogSearch.life_span
         }
@@ -129,19 +146,25 @@ const dogsControllers = {
         const dogMap = {
             "id": findDog.id,
             "name": findDog.name,
-            "weight": findDog.weight,
+            "weightMin": findDog.weightMin,
+            "weightMax": findDog.weightMax,
             "temperament": findDog.Temperaments.map(e => e.name),
             "image": findDog.image,
-            "height": findDog.height,
-            "life_span": findDog.life_span
+            "heightMin": findDog.heightMin,
+            "heightMax": findDog.heightMax,
+            "life": findDog.life
         }
         return dogMap;        
     },
 
-    addDog: async (name, height, weight, life_span, temperament) => {
+    addDog: async (name, heightMin, heightMax, weightMin, weightMax, life, temperaments) => {
+        const values = []
+        temperaments.forEach(t => {
+            values.push(...Object.values(t))
+        });
     
-        const newDog = await Dog.create({name, height, weight, life_span})
-        await newDog.addTemperaments(temperament)    
+        const newDog = await Dog.create({name, heightMin, heightMax, weightMin, weightMax, life})
+        await newDog.addTemperaments(values)    
         return newDog
     }
 }

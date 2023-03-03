@@ -2,6 +2,9 @@
 .homeContainer {
     /* background-color: blue; */
     /* position: fixed; */
+    background-image: url("../../assets/huellitas2.jpg");
+    background-size: cover;
+    z-index: -3;
 }
 
 .homeContainer .filterSort {
@@ -14,7 +17,7 @@
 }
 
 
- .homeContainer select {
+ .homeContainer .filterSort select {
     text-align: center;
     color: black;
     font-weight: 400;
@@ -24,3 +27,8 @@
     margin: 1rem;
     box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
 }
+/* 
+.filterSort select option:hover {
+    background-color: var(--error-color);
+    color: var(--backgorund-color);
+} */

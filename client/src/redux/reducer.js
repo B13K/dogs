@@ -1,5 +1,5 @@
 
-import { DOGS_FILTER, FILTER_DOGS, GET_DOG, GET_DOGS, GET_TEMPERAMENTS, SORT_DOGS,  } from "./types";
+import { DOGS_FILTER, FILTER_DOGS, GET_DOG, GET_DOGS, GET_TEMPERAMENTS, RESET_FILTER, SORT_DOGS,  } from "./types";
 
 
 const initialState = {
@@ -25,6 +25,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, filterDogs: action.payload };
         case GET_TEMPERAMENTS:
             return {...state, temperaments: action.payload};
+        case RESET_FILTER:
+            return { ...state, sortDogs: { sort: "default", type: "name" }, filterDogs:{ db: "all", temperament: "all" }}
         default:
             return {...initialState};
     }

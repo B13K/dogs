@@ -1,13 +1,21 @@
+@font-face {
+    font-family: "Mynerve-Regular";
+    src: url(../../assets//fonts//Mynerve-Regular.ttf);
+}
 
 .landingContent {
     display: flex;
     height: 100vh;
+    background-image: url("../../assets//perrito.jpg");
+    background-size: cover;
 
 }
 
+
+
 .landingBloque1 {
     flex: 1;
-    background-color: #ffffff;
+    /* background-color: rgb(255,255,255,0.2); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,30 +24,40 @@
 
 .landingBloque2 {
     flex: 1;
-    background-color: #ff4848;
+    /* background-color: rgb(255, 72, 72, 0.2); */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+    /* justify-content: center; */
+}
+
+.landingBloque2 h1 {
+    font-family: 'Mynerve', cursive;
+    margin: 1rem;
 }
 
 .buttonLanding {
     display: inline-block;
     padding: 20px;
-    background-color: #ff4848;
-    background-image: linear-gradient(90deg, #ff4848 50%, #ff4848 50%);
+    /* background-color: #ff4848; */
+    background-color: rgb(255, 255, 255);
+    background-image: linear-gradient(0deg, #9f8f6e 50%, rgb(255, 255, 255, 0.5));
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     transition: background-color 0.3s;
-    border: 10px solid #8bc34a;
+    /* border: 10px solid #8bc34a; */
+    border: 10px solid #7b9877
 }
 
-.buttonLanding:hover {
+/* .buttonLanding:hover {
     background-color: #f00;
-}
+    background-color: rgb(255, 255, 255, 0.5);
+} */
 
 .buttonLanding img {
     display: block;
