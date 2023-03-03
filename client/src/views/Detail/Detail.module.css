@@ -12,27 +12,28 @@
 
 .detailImg {
     /* background-color: green; */
-    flex: 2;
+    flex: 1;
     align-items: right;
     justify-content: right;
 }
 
 .detailImg img {
     /* background-color: green; */
-    height: 40rem;
-    width: 50rem;
+    height: 30rem;
+    width: 40rem;
     border-radius: 1rem;
+    margin-right: 1rem;
 }
 
 .detailData {
-    flex: 1;
+    flex: 2;
     /* background-color: red; */
     display: flex;
 }
 
 .detailSpace1 {
-    flex: 1;
-    flex-direction: column;
+    /* flex: 1;
+    flex-direction: column; */
     /* background-color: grey; */
 }
 
@@ -42,14 +43,30 @@
     display:flex;
     flex-direction: column;
     align-items: left;
-    justify-content: space-between;
+    justify-content: left;
+    color: var(--secundary-color);
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    border-top: 1rem solid var(--primary-color);
+    box-shadow: 0 0.2rem 0.4rem var(--secundary-color);
+    background-image: url(../../assets/perro.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    z-index: 0;
+    /* border-style: solid;
+    border-width: 1rem;
+    border-color: var(--primary-color); */
 }
 
 
 .detailDivData {
     display: flex;
     flex-direction: row;
+}
 
+.detailDivDataName {
+    justify-content: center;
 }
 
 .detailDivData label {
@@ -62,6 +79,7 @@
 }
 
 .detailDivTemperament {
+    /* background-color: yellow; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -70,4 +88,7 @@
 .detailTemperament {
     /* background-color: red; */
     margin: 0 1rem;
+    padding: 0 0.5rem;
+    border-right: 0.2rem solid var(--secundary-color);
+    border-left: 0.2rem solid var(--secundary-color);
 }

@@ -1,50 +1,48 @@
 
 .formContainer {
-    /* background-color: green; */
+    background-image: url("../../assets/huellitas2.jpg");
+    background-size: cover;
     display: flex;
+    position: relative;
     height: 90vh;
     flex-wrap: wrap;
 }
 
-.formContainer .div1{
-    /* background-color: red; */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.formContainer object {
+    width: 25rem;
+    position: absolute;
+    bottom: 0rem;
 }
 
-.div1 img {
-    /* background-color: blue; */
-    width: 20rem;
-    height: 20rem;
+.formContainer .div1{    
+    left: 0rem;
+    transform: scaleX(-1);
 }
 
 .formContainer .div2 {
-    /* background-color: blue; */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    right: 0rem;
 }
 
 .formContainer .form {
+    background-color: rgb(255,255,255,0.6);
     display: inline-block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 0.2rem solid black;
+    border: 0.1rem solid var(--outline-color);
+    border-radius: 1rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem var(--outline-color);
     padding: 1rem;
     width: 30%
 }
 
 .formDiv {
-    background-color: yellow;
+    /* background-color: yellow; */
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     margin: 2rem 1rem;
 }
 
@@ -59,12 +57,56 @@
     font-size: 1.1rem;
 }
 
-.formDiv .error {
+.form .error {
     display: block;
     width: 100%;
     /* background-color: red; */
-    color: red;
+    color: var(--error-color);
     font-size: 0.9rem;
     position: absolute;
     top: 1.2rem;
+}
+
+.formDiv .divData label {
+    font-weight: 700;
+    color: var(--secundary-color);
+}
+
+.formDiv input {
+    border: 0.2rem solid var(--secundary-color);
+    text-align: center;
+    color: var(--secundary-color);
+}
+
+.formDiv .inputClassOk:focus {
+    border: none;
+    outline: 0.2rem solid var(--success-color);
+    /* box-sizing: border-box; */
+}
+
+.formDiv .inputClassError {
+    border: none;
+    outline: 0.2rem solid var(--error-color);
+}
+
+.formContainer .form .formButton {
+    background-color: var(--background-color);
+    border-radius: 0.7rem;
+    border-width: 0.1rem;
+    border-color: var(--secundary-color);
+    width: auto;
+    height: 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secundary-color);
+}
+
+.divDataTemperament {
+    display: flex;
+    /* background-color: blue; */
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 1rem;
+
 }

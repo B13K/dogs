@@ -4,8 +4,6 @@ import style from "./Landing.module.css"
 
 const Landing = () => {
 
-    const nameButton = "Home"
-
     return (
         <div className={style.landingContent}>
             <section className={style.landingBloque1}>

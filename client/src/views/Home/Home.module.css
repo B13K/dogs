@@ -2,8 +2,9 @@
 .homeContainer {
     /* background-color: blue; */
     /* position: fixed; */
-    background-image: url("../../assets/huellitas2.jpg");
-    background-size: cover;
+    height: 90vh;
+    background-image: url("../../assets/corazon.svg");
+    background-size: 15rem;
     z-index: -3;
 }
 

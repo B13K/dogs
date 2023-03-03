@@ -2,7 +2,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react"
 import { useEffect } from "react"
-import { Link } from "react-router-dom"
 import Card from "../Card/Card"
 import style from "./CardContainer.module.css"
 import Pagination from "../Pagination/Pagination"
@@ -116,9 +115,7 @@ const CardContainer = () => {
     }
     // Finaliza la funcion para ordenar los perros
 
-    const handlerDetail = (id) => {
-        dispatch(getDogById(id))
-    }
+    
     return (
         <div className={style.container}>
         <div>
@@ -127,16 +124,13 @@ const CardContainer = () => {
             <div className={style.cardContainer}>
                 {
                     currentDogs.map(e => 
-                        <Link key={e.id} to={`/detail/${e.id}`} onClick={() => handlerDetail(e.id)}>
                             <Card 
                                 id = {e.id}
                                 name = {e.name}
                                 weight = {e.weightMax}
                                 temperament = {e.temperament}
                                 image = {e.image}         
-                            />
-                            
-                        </Link>)
+                            />)
                 }
             </div>
         </div>

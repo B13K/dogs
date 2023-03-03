@@ -29,8 +29,7 @@ const Detail = () => {
         <div className={style.detailData}>
             <div className={style.detailSpace1}></div>
             <div className={style.detailDogData}>
-                <div className={style.detailDivData}>
-                    <h1>Name:</h1>
+                <div className={`${style.detailDivData} ${style.detailDivDataName}`}>
                     <h1>{dog.name}</h1>
                 </div>
                 <div className={style.detailDivData}>

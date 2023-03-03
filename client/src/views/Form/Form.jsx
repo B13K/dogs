@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { getTemperaments } from "../../redux/actions";
 import style from "./Form.module.css"
+import imagen from "../../assets/perro.svg"
 
 const Form = () => {
     const url = "http://localhost:3001/dogs"
@@ -12,30 +13,34 @@ const Form = () => {
 
     const [temperaments, setTemperaments] = useState({})
 
-    const validation = ({name, heightMin, heightMax, weightMin, weightMax, life}) => {
+    const validation = ({name, heightMin, heightMax, weightMin, weightMax, life, temperaments}) => {
         let error = {}
         if(nameRegex.test(name)){
             error.name = "El nombre no debe contener numeros";
         } 
 
-        // if(heightMax !== "" && Number(heightMin) > Number(heightMax)){
-            
-        //     error.heightMin = "Height minimo no puede ser mayor que el Height maximo"
-        // }
-
         if(heightMax !== "" && Number(heightMax) < Number(heightMin)){
             error.heightMax = "Height maximo no puede ser menor que el Height minimo";
         }
-
-        // if(weightMax.length && Number(weightMin) > Number(weightMax)){
-        //     error.weightMin = "Weight minimo no puede ser mayor que el Weight maximo";
-        // }
 
         if(weightMax.length && Number(weightMax) < Number(weightMin)){
            error.weightMax = "Weight maximo no puede ser menor que el Weight minimo";
         }
         if(!life.length){
             error.life = "El life no puede ser vacio"
+        }
+
+        if(temperaments.length) {
+            let arrValues = []
+           temperaments.forEach(t => t.id !== undefined && arrValues.push(Object.values(t)[0]))
+           const arrSet = new Set([...arrValues])
+           if(arrValues.length < temperaments.length){
+            error.temperaments = "Hay temperaments que faltan asignar"
+           }
+           if(arrSet.size < arrValues.length){
+            console.log("ingei")
+            error.temperaments = "Hay temperaments duplicados"
+           }
         }
         return error;
         
@@ -73,7 +78,7 @@ const Form = () => {
         weightMax: "",
         weightMin: "",
         life: "",
-        temperaments: []
+        temperaments: ""
     })
 
 
@@ -115,19 +120,30 @@ const Form = () => {
     const nameRegex = /\d/ // Regex para verificar si el nombre contiene numeros
 
   
+    const deleteTemperament = (e) => {  
+        const {id,name} = e.target
+        if(!id){
+            const tempDelete = [...form.temperaments].filter((t,i) => i!==Number(name))
+            setForm({...form, temperaments: tempDelete})
+            // setError({...form, temperaments: tempDelete})
+        }else {
+            const tempDelete = [...form.temperaments].filter(t => t.id !== id)
+            setForm({...form, temperaments: tempDelete})
+            // setError({...form, temperaments: tempDelete})
+
+        }
+    }
 
    
     return (
         <div className={style.formContainer}>
-            <div className={style.div1}>
-                <img src="https://imagenesparapeques.com/wp-content/uploads/2017/08/Bingo-y-Rolly-imagenes.png" alt="" />
-            </div>
-            <div className={style.div2}></div>
+            <object className={style.div1} data={imagen} type="image/svg+xml"/>
+            <object className={style.div2} data={imagen} type="image/svg+xml"/>
             <form onSubmit={handleSubmit} className={style.form}>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
                         <label>Name:</label>
-                        <input type="text" value={form.name} name="name" onChange={changeHandlerForm}/>
+                        <input className={!error.name?.length ? style.inputClassOk : style.inputClassError} type="text" value={form.name} name="name" onChange={changeHandlerForm}/>
                     </div>
                         {
                             error.name !== "" && <span className={style.error}>{error.name}</span>
@@ -135,8 +151,8 @@ const Form = () => {
                 </div>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
-                        <label>Height Min:</label>
-                        <input type="number" value={form.heightMin} name="heightMin" onChange={changeHandlerForm} />
+                        <label>Height Min (cm):</label>
+                        <input className={!error.heightMax?.length ? style.inputClassOk : style.inputClassError} type="number" value={form.heightMin} name="heightMin" onChange={changeHandlerForm} />
                         </div>
                     {
                         error.heightMin !== "" && <span className={style.error}>{error.heightMin}</span>
@@ -144,8 +160,8 @@ const Form = () => {
                 </div>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
-                        <label>Height Max:</label>
-                        <input type="number" value={form.heightMax} name="heightMax" onChange={changeHandlerForm} />
+                        <label>Height Max (cm):</label>
+                        <input className={!error.heightMax?.length ? style.inputClassOk : style.inputClassError} type="number" value={form.heightMax} name="heightMax" onChange={changeHandlerForm} />
                     </div>
                     {
                         error.heightMax !== "" && <span className={style.error}>{error.heightMax}</span>
@@ -153,8 +169,8 @@ const Form = () => {
                 </div>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
-                        <label>Weight Min:</label>
-                        <input type="number" value={form.weightMin} name="weightMin" onChange={changeHandlerForm} />
+                        <label>Weight Min (kg):</label>
+                        <input className={!error.weightMax?.length ? style.inputClassOk : style.inputClassError} type="number" value={form.weightMin} name="weightMin" onChange={changeHandlerForm} />
                     </div>
                     {
                         error.weightMin !== "" && <span className={style.error}>{error.weightMin}</span>
@@ -162,8 +178,8 @@ const Form = () => {
                 </div>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
-                        <label>Weight Max:</label>
-                        <input type="number" value={form.weightMax} name="weightMax" onChange={changeHandlerForm} />
+                        <label>Weight Max (kg):</label>
+                        <input className={!error.weightMax?.length ? style.inputClassOk : style.inputClassError} type="number" value={form.weightMax} name="weightMax" onChange={changeHandlerForm} />
                     </div>
                     {
                         error.weightMax !== "" && <span className={style.error}>{error.weightMax}</span>
@@ -171,21 +187,24 @@ const Form = () => {
                 </div>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
-                        <label>Life:</label>
-                        <input type="number" value={form.life} name="life" onChange={changeHandlerForm} />
+                        <label>Life (Years):</label>
+                        <input className={!error.life?.length ? style.inputClassOk : style.inputClassError} type="number" value={form.life} name="life" onChange={changeHandlerForm} />
                     </div>
                     {
                         error.life !== "" &&  <span className={style.error}>{error.life}</span>
                     }
                 </div>
-                <div>
-                    <input type="button" value="Add temperament" onClick={addTemperament}/>
+                <div className={style.formDiv}>
+                    <input className={style.formButton} type="button" value="Add temperament" onClick={addTemperament}/>
+                    {
+                        error.temperaments !== "" && <span className={style.error}>{error.temperaments}</span>
+                    }
                     {
                         form.temperaments.map( (t, i) => (
-                            <div key={i+1}>
+                            <div key={i+1} className={style.divDataTemperament}>
                                 <label>Temperament {i}:</label>
                                 <select id={i} value={t.id} onChange={changeHandlerForm}>
-                                    <option value={undefined}>Not temperament</option>
+                                    <option id={undefined}>Not temperament</option>
                                     {
                                         temperamentsAll.map( (temp,index) => (
                                             <option
@@ -194,6 +213,7 @@ const Form = () => {
                                         ))
                                     }
                                 </select>
+                                <input type="button" id={undefined} name={i} value="-" onClick={deleteTemperament}/>
                             </div>
                         ))
                     }
