@@ -19,6 +19,10 @@ const inchToCen = (num) => {
     return Math.floor(num*2.54)
 }
 
+const poundsToKg = (num) => {
+    return Math.round(num/2.205)
+}
+
 const filterByName = (data, name) => {
     const filter = data.filter(d => d.name.toLowerCase().includes(name.toLowerCase()))
     return filter;
@@ -32,8 +36,8 @@ const mapDogs = (dataApi) => {
         if(d.weight.metric === "NaN") {
             [minWeight, vacio, maxWeight] = d.weight.imperial.trim()
                                                     .split(" ");
-            minWeight = inchToCen(minWeight);
-            maxWeight = inchToCen(maxWeight)
+            minWeight = poundsToKg(minWeight);
+            maxWeight = poundsToKg(maxWeight)
         }
         else{
             [minWeight, maxWeight] = d.weight.metric.trim()
@@ -114,8 +118,22 @@ const dogsControllers = {
     getDogByIdApi: async (id) => {
         const data = await getApi()
         const dogSearch = data.find(d => d.id === Number(id))
+
+        let [minWeight, maxWeight] = ["", ""]
+
+        if(dogSearch.weight.metric === "NaN") {
+            [minWeight, vacio, maxWeight] = dogSearch.weight.imperial.trim()
+                                                    .split(" ");
+            minWeight = poundsToKg(minWeight);
+            maxWeight = poundsToKg(maxWeight)
+        }
+        else{            
+            [minWeight, maxWeight] = dogSearch.weight.metric.trim().split("-")
+        }
+
+        
         const [minHeight, maxHeight] = dogSearch.height.metric.trim().split("-")
-        const [minWeight, maxWeight] = dogSearch.weight.metric.trim().split("-")
+        
         const dogMap = {
             "id": dogSearch.id,
             "name": dogSearch.name,
@@ -125,7 +143,7 @@ const dogsControllers = {
             "weightMax": maxWeight, 
             "temperament": dogSearch.temperament?.split(",").map(e => e.trim()),
             "image": dogSearch.image.url,
-            "life": dogSearch.life_span
+            "life": dogSearch.life_span.split("year")[0]
         }
         return dogMap;
     },
@@ -157,13 +175,15 @@ const dogsControllers = {
         return dogMap;        
     },
 
-    addDog: async (name, heightMin, heightMax, weightMin, weightMax, life, temperaments) => {
+    addDog: async (name, heightMin, heightMax, weightMin, weightMax, life, image, temperaments) => {
         const values = []
         temperaments.forEach(t => {
             values.push(...Object.values(t))
         });
+        
+        image = image === "" ? undefined : image
     
-        const newDog = await Dog.create({name, heightMin, heightMax, weightMin, weightMax, life})
+        const newDog = await Dog.create({name, heightMin, heightMax, weightMin, weightMax, life, image})
         await newDog.addTemperaments(values)    
         return newDog
     }

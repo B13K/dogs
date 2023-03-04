@@ -100,11 +100,20 @@
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--secundary-color);
+    margin-bottom: 1rem;
+}
+
+.divTemperamentsAll {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .divDataTemperament {
     display: flex;
     /* background-color: blue; */
+    gap: 0.5rem;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin: 0.5rem 1rem;

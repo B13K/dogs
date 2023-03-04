@@ -1,7 +1,7 @@
 
 import axios from "axios"
 
-import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS, RESET_FILTER,  } from "./types";
+import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS, RESET_FILTER, RESET_DOG,  } from "./types";
 
 const url = "http://localhost:3001/dogs"
 const urlTemp = "http://localhost:3001/temperaments"
@@ -52,7 +52,6 @@ export const getTemperaments = () => {
 
 
 export const sortDogs = (sort) => {
-    console.log(sort)
     return {type: SORT_DOGS, payload: sort};
 }
 
@@ -62,4 +61,8 @@ export const filterDogs = (filter) => {
 
 export const resetDogsFilter = () => {
     return {type: RESET_FILTER}
+}
+
+export const resetDogById = () => {
+    return { type: RESET_DOG }
 }

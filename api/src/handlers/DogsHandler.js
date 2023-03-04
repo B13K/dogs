@@ -34,13 +34,13 @@ const dogsHandlers = {
     },
 
     addDog: async (req,res) => {
-        const { name, heightMin, heightMax, weightMin, weightMax, life, temperaments } = req.body
+        const { name, heightMin, heightMax, weightMin, weightMax, life, temperaments, image } = req.body
         
         try {
             if(!name || !heightMin || !heightMax || !weightMin || !weightMax || !life){
                 throw new Error("Faltan datos para gregar una nueva raza")
             }
-            const newDog = await dogsControllers.addDog(name, heightMin, heightMax, weightMin, weightMax, life, temperaments)
+            const newDog = await dogsControllers.addDog(name, heightMin, heightMax, weightMin, weightMax, life, image, temperaments)
             res.status(200).json("create dog successfull")
         } catch (err) {
             console.log(err.message)

@@ -13,10 +13,14 @@ const Form = () => {
 
     const [temperaments, setTemperaments] = useState({})
 
-    const validation = ({name, heightMin, heightMax, weightMin, weightMax, life, temperaments}) => {
+    
+    const nameRegex = /\d/ // Regex para verificar si el nombre contiene numeros
+    const imgRegex = /.*(png|jpg|jpeg|gif)$/  // Regex para verificar si la url es una imagen
+
+    const validation = ({name, heightMin, heightMax, weightMin, weightMax, life, image, temperaments}) => {
         let error = {}
-        if(nameRegex.test(name)){
-            error.name = "El nombre no debe contener numeros";
+        if(nameRegex.test(name) || name == ""){
+            error.name = "El nombre no debe contener numeros o estar vacio";
         } 
 
         if(heightMax !== "" && Number(heightMax) < Number(heightMin)){
@@ -28,6 +32,9 @@ const Form = () => {
         }
         if(!life.length){
             error.life = "El life no puede ser vacio"
+        }
+        if(image !== "" && !imgRegex.test(image)){
+            error.image = "La url no tiene una imagen"
         }
 
         if(temperaments.length) {
@@ -67,6 +74,7 @@ const Form = () => {
         weightMax: "",
         weightMin: "",
         life: "",
+        image: "",
         temperaments: []
 
     })
@@ -78,15 +86,22 @@ const Form = () => {
         weightMax: "",
         weightMin: "",
         life: "",
+        image: "",
         temperaments: ""
     })
 
 
 
     const addTemperament = (e) => {
+        if(form.temperaments.length >= 6){
+            return;
+        }
         setForm({
             ...form, temperaments: [...form.temperaments, {...newTemperament}]
         })
+        const err = validation({...form, temperaments: [...form.temperaments, {...newTemperament}]});
+        setError(err)
+        
     }
 
     const changeHandlerForm = (event) => {
@@ -105,33 +120,33 @@ const Form = () => {
         }       
     }
 
+
+  
+    const deleteTemperament = (e) => {  
+        const {id,} = e.target
+        const tempDelete = [...form.temperaments].filter( (t,i) => i !== Number(id))
+        let err = validation({...form, temperaments: tempDelete}) // Verifico si hay errores en el form
+        setError(err) // Seteo los errores despues de validarlos
+        setForm({...form, temperaments: tempDelete})
+        
+    }
+
+    
     const handleSubmit = (e) => {        
         e.preventDefault();
 
         //Primero verifico si hay errores en el form
-        setError(validation({...form}))
+        // let err = validation({...form})
+
+        if(Object.keys(error).length){
+            alert("Tienes que completar e form y estar sin errores")
+            return
+        }
 
         axios.post(url, form)
             .then(data => alert("Create dog successfull"))
-            .catch(data => alert("Create dog error"))
+            .catch(data => alert("Create dog error, rellenar el formulario"))
         
-    }
-
-    const nameRegex = /\d/ // Regex para verificar si el nombre contiene numeros
-
-  
-    const deleteTemperament = (e) => {  
-        const {id,name} = e.target
-        if(!id){
-            const tempDelete = [...form.temperaments].filter((t,i) => i!==Number(name))
-            setForm({...form, temperaments: tempDelete})
-            // setError({...form, temperaments: tempDelete})
-        }else {
-            const tempDelete = [...form.temperaments].filter(t => t.id !== id)
-            setForm({...form, temperaments: tempDelete})
-            // setError({...form, temperaments: tempDelete})
-
-        }
     }
 
    
@@ -143,7 +158,12 @@ const Form = () => {
                 <div className={style.formDiv}>
                     <div className={style.divData}>
                         <label>Name:</label>
-                        <input className={!error.name?.length ? style.inputClassOk : style.inputClassError} type="text" value={form.name} name="name" onChange={changeHandlerForm}/>
+                        <input className={!error.name?.length ? style.inputClassOk
+                                                              : style.inputClassError} 
+                                type="text"
+                                value={form.name}
+                                name="name"
+                                onChange={changeHandlerForm}/>
                     </div>
                         {
                             error.name !== "" && <span className={style.error}>{error.name}</span>
@@ -195,14 +215,29 @@ const Form = () => {
                     }
                 </div>
                 <div className={style.formDiv}>
+                    <div className={style.divData}>
+                        <label>Image (url):</label>
+                        <input className={!error.image?.length ? style.inputClassOk
+                                                              : style.inputClassError} 
+                                type="text"
+                                value={form.image}
+                                name="image"
+                                onChange={changeHandlerForm}/>
+                    </div>
+                        {
+                            error.image !== "" && <span className={style.error}>{error.image}</span>
+                        }
+                </div>
+                <div className={style.formDiv}>
                     <input className={style.formButton} type="button" value="Add temperament" onClick={addTemperament}/>
                     {
                         error.temperaments !== "" && <span className={style.error}>{error.temperaments}</span>
                     }
+                    <div className={style.divTemperamentsAll}> 
                     {
                         form.temperaments.map( (t, i) => (
-                            <div key={i+1} className={style.divDataTemperament}>
-                                <label>Temperament {i}:</label>
+                            <div key={i} className={style.divDataTemperament}>
+                                {/* <label>Temperament {i}:</label> */}
                                 <select id={i} value={t.id} onChange={changeHandlerForm}>
                                     <option id={undefined}>Not temperament</option>
                                     {
@@ -213,10 +248,13 @@ const Form = () => {
                                         ))
                                     }
                                 </select>
-                                <input type="button" id={undefined} name={i} value="-" onClick={deleteTemperament}/>
+                                <input type="button" id={i} name={i} value="X" onClick={deleteTemperament}/>
                             </div>
                         ))
                     }
+
+                    </div>
+                   
                 </div> 
                 <input type="submit" value="Send new Dog" />
             </form>

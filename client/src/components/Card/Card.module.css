@@ -6,13 +6,13 @@
     display: flex;
     flex-direction: column;
     /* margin: 1rem; */
-    margin-bottom: 2rem;
+    margin-bottom: 6rem;
     border: 0.1rem solid var(--outline-color);
     border-radius: 0.6rem;
     width: 20rem;
     height: 15rem;
     align-items: center;
-    justify-content: start;   
+    justify-content: flex-start; 
 }
 
 .cardTemperament {

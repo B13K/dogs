@@ -11,7 +11,7 @@ const SortBar = () => {
 
     const [ order, setOrder ] = useState(
         {
-            sort: "default",
+            sort: "asc",
             type: "name"
         }
     )
@@ -27,7 +27,7 @@ const SortBar = () => {
         <div className={style.sortBarContainer}>
             <div>
                 <select name="sort" value={order.sort} onChange={orderHandler}>
-                    <option value="default">Default</option>
+                    {/* <option value="default">Default</option> */}
                     <option value="asc">Ascendent</option>
                     <option value="desc">Descendent</option>
                 </select>

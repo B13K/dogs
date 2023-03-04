@@ -7,8 +7,10 @@
 
 .paginationContainer button {
     margin: 0 0.2rem;
+    font-size: 1.2rem;
     background-color: var(--secundary-color);
-    border: none;
+    border: 0.1rem solid var(--secundary-color);
+    border-radius: 0.5rem;
     color: var(--background-color);
 
     box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);

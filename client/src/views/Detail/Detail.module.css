@@ -2,6 +2,8 @@
 
 .detailContainer {
     /* background-color: yellow; */
+    background-image: url(../../assets/huellitas2.jpg);
+    background-size: cover;
     height: 90vh;
     display: flex;
     flex-direction: row;
@@ -38,7 +40,7 @@
 }
 
 .detailDogData {
-    /* background-color: red; */
+    background-color: rgb(255, 255, 255, 0.6);
     flex: 2;
     display:flex;
     flex-direction: column;

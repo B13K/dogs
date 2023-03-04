@@ -20,13 +20,23 @@
 
  .homeContainer .filterSort select {
     text-align: center;
-    color: black;
-    font-weight: 400;
-    font-size: 1.1rem;
+    background-color:var(--primary-color);
+    color: var(--secundary-color);
+    font-weight: 700;
+    font-size: 1.3rem;
     border-radius: 0.7rem;
     border: 0.2rem;
     margin: 1rem;
+    padding: 0.5;
     box-shadow: 0 0.2rem 0.4rem rgb(0, 0, 0, 0.3);
+}
+
+.filterSort select option {
+    background-color: white;
+}
+
+.filterSort select option:focus {
+    background-color: blue;
 }
 /* 
 .filterSort select option:hover {

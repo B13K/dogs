@@ -1,11 +1,14 @@
 import { useSelector, useDispatch } from "react-redux"
+import {useLocation} from "react-router-dom"
 import { useState, useEffect } from "react"
+import { getDogById, resetDogById } from "../../redux/actions"
 import style from "./Detail.module.css"
 
 const Detail = () => {
 
+    const location = useLocation();
     const dogId = useSelector(state => state.dog)
-    // const dispatch = useDispatch(getDogById(id))
+    const dispatch = useDispatch()
 
     const [dog, setDog] = useState({
         id: null,
@@ -23,6 +26,16 @@ const Detail = () => {
     useEffect( () => {
         setDog(dogId)
     }, [dogId])
+
+
+    useEffect( () => {
+        const id = location.pathname.split("/")[2]
+        dispatch(getDogById(id))
+        
+        return () => {
+            dispatch(resetDogById())
+        }
+    }, [])
     
     return (
     <div className={style.detailContainer}>
@@ -34,7 +47,11 @@ const Detail = () => {
                 </div>
                 <div className={style.detailDivData}>
                     <label>Height:</label>
-                    <p>{`${dog.heightMin} - ${dog.heightMax} cm`}</p>
+                    {
+                        dog.heightMax ?  <p>{`${dog.heightMin} - ${dog.heightMax} cm`}</p>
+                                      :  <p>{`${dog.heightMin} cm`}</p>
+                    }
+                    {/* <p>{`${dog.heightMin} - ${dog.heightMax} cm`}</p> */}
                 </div>
                 <div className={style.detailDivData}>
                     <label>Weight:</label>
@@ -55,7 +72,7 @@ const Detail = () => {
             </div> 
         </div>
         <div className={style.detailImg}>
-            <img src={dog.image}/>
+            <img src={dog.image} alt="Dogs"/>
         </div>
     </div>
     )

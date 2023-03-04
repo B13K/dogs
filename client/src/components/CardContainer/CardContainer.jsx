@@ -1,15 +1,13 @@
 
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { useState } from "react"
 import { useEffect } from "react"
 import Card from "../Card/Card"
 import style from "./CardContainer.module.css"
 import Pagination from "../Pagination/Pagination"
-import { getDogById } from "../../redux/actions"
 
 
 const CardContainer = () => {
-    const dispatch = useDispatch()
 
     const dogsAll = useSelector(state => state.dogs) // Traemos los dogs desde el store sin modificar
     const sortDogs = useSelector(state => state.sortDogs) // traemos las condiciones del sort
@@ -34,22 +32,14 @@ const CardContainer = () => {
     useEffect( () => {
        
         filterSort();
-    }, [dogsAll, filterDogs])
+    }, [dogsAll, filterDogs, sortDogs])
 
-    useEffect( () => {
-        let data = createSort(dogs, sortDogs)
-        setDogs(data)
-        setCurrentPage(1)
-    }, [sortDogs])
+    // useEffect( () => {
+    //     let data = createSort(dogs, sortDogs)
+    //     setDogs(data)
+    //     setCurrentPage(1)
+    // }, [sortDogs])
 
-    const filterSort = () => {
-        let data = filterDB(dogsAll, filterDogs.db)
-        data = filterTemperaments(data, filterDogs.temperament)
-        data = createSort(data, sortDogs)
-        setDogs(data)
-        setCurrentPage(1)
-
-    }
 
 
     const filterTemperaments = (data, filter) => {
@@ -81,6 +71,15 @@ const CardContainer = () => {
         }
     }
 
+    
+    const filterSort = () => {
+        let data = filterDB(dogsAll, filterDogs.db)
+        data = filterTemperaments(data, filterDogs.temperament)
+        data = createSort(data, sortDogs)
+        setDogs(data)
+        setCurrentPage(1)
+
+    }
     // Funcion para ordenar por nombre o por peso
     const createSort = (data, orderBy) => {
         const sortDogsAll = [...data]
@@ -118,13 +117,11 @@ const CardContainer = () => {
     
     return (
         <div className={style.container}>
-        <div>
-            <Pagination dogsPerPage={dogsPerPage} totalDogs = {dogs.length} paginate={paginate}/>
-        </div>
             <div className={style.cardContainer}>
                 {
                     currentDogs.map(e => 
                             <Card 
+                                key={e.id}
                                 id = {e.id}
                                 name = {e.name}
                                 weight = {e.weightMax}
@@ -132,6 +129,9 @@ const CardContainer = () => {
                                 image = {e.image}         
                             />)
                 }
+            </div>
+            <div>
+                <Pagination dogsPerPage={dogsPerPage} totalDogs = {dogs.length} paginate={paginate}/>
             </div>
         </div>
     )
