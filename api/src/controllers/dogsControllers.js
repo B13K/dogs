@@ -97,7 +97,6 @@ const dogsControllers = {
     getDogsAll: async () => {
 
         let dataApi = await getApi();
-        console.log(dataApi.length)
         let dataMap =  mapDogs(dataApi)
         let dataDb = await Dog.findAll({
             include: {
