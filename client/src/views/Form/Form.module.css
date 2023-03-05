@@ -103,6 +103,17 @@
     margin-bottom: 1rem;
 }
 
+.form .formButton:hover {
+    background-color: var(--primary-color);
+    color: var(--secundary-color);
+}
+
+.form .formButton:active {
+    font-weight: 600;
+    background-color: var(--tertiary-color);
+    color: var(--background-color)   
+}
+
 .divTemperamentsAll {
     display: flex;
     flex-direction: row;
@@ -118,4 +129,21 @@
     justify-content: space-between;
     margin: 0.5rem 1rem;
 
+}
+
+.divDataTemperament .deleteTemperament {
+    background-color: var(--error-color);
+    color: var(--background-color);
+    border: 0.1rem solid var(--error-color);
+    border-radius: 25%;
+    font-weight: 600;
+}
+
+.deleteTemperament:hover {
+    transform: scale(1.2);
+}
+
+.deleteTemperament:active {
+    background-color: var(--tertiary-color);
+    border-color: var(--tertiary-color);
 }

@@ -12,7 +12,7 @@ const NavBar = () => {
                 <Link to="/home" className={style.link}>Home</Link>
                 <Link to="/create" className={style.link}>Form</Link>
             </div>
-            <object className={style.navBarIcon} data={imagen} type="image/svg+xml"/>
+            <object className={style.navBarIcon} data={imagen} type="image/svg+xml" aria-label="Perro insignia"/>
             {
                 location.pathname !== "/create" && location.pathname !== `/detail/${location.pathname.split("/")[2]}` && <SearchBar/>
 

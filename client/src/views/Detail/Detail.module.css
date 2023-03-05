@@ -1,9 +1,10 @@
-
-
-.detailContainer {
-    /* background-color: yellow; */
+.detailMain {
     background-image: url(../../assets/huellitas2.jpg);
     background-size: cover;
+    height: 90vh;
+}
+
+.detailContainer {
     height: 90vh;
     display: flex;
     flex-direction: row;
@@ -31,12 +32,6 @@
     flex: 2;
     /* background-color: red; */
     display: flex;
-}
-
-.detailSpace1 {
-    /* flex: 1;
-    flex-direction: column; */
-    /* background-color: grey; */
 }
 
 .detailDogData {

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux"
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"
 import { sortDogs } from "../../redux/actions";
 import style from "./SortBar.module.css"
 
@@ -8,6 +8,7 @@ import style from "./SortBar.module.css"
 const SortBar = () => {
 
     const dispatch = useDispatch()
+    const orderDB = useSelector(state => state.sortDogs)
 
     const [ order, setOrder ] = useState(
         {
@@ -15,6 +16,11 @@ const SortBar = () => {
             type: "name"
         }
     )
+
+    useEffect( () => {
+        setOrder(orderDB)
+    }, [orderDB])
+    
 
 
     const orderHandler = (e) => {

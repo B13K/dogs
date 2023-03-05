@@ -9,6 +9,7 @@ const FilterBar = () => {
 
     const dispatch = useDispatch()
     const temperamentsAll = useSelector(state => state.temperaments)
+    const filterAll = useSelector(state => state.filterDogs)
 
     const [temperaments, setTemperaments] = useState([])
 
@@ -21,6 +22,11 @@ const FilterBar = () => {
     useEffect( () => {
         setTemperaments(temperamentsAll)
     },[temperamentsAll])
+
+
+    useEffect( () => {
+        setFilter(filterAll)
+    }, [filterAll])
 
 
     const filterHandler = (e) => {

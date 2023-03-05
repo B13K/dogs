@@ -1,7 +1,7 @@
 
 import axios from "axios"
 
-import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS, RESET_FILTER, RESET_DOG,  } from "./types";
+import {  GET_DOGS, GET_DOG, GET_TEMPERAMENTS, SORT_DOGS, FILTER_DOGS, RESET_FILTER, RESET_DOG, RESET_DOGS } from "./types";
 
 const url = "http://localhost:3001/dogs"
 const urlTemp = "http://localhost:3001/temperaments"
@@ -65,4 +65,8 @@ export const resetDogsFilter = () => {
 
 export const resetDogById = () => {
     return { type: RESET_DOG }
+}
+
+export const resetDogs = () => {
+    return {type: RESET_DOGS}
 }

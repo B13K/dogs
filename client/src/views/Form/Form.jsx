@@ -10,31 +10,28 @@ const Form = () => {
     
     const dispatch = useDispatch()
     const temperamentsAll = useSelector(state => state.temperaments)
-
-    const [temperaments, setTemperaments] = useState({})
-
     
     const nameRegex = /\d/ // Regex para verificar si el nombre contiene numeros
     const imgRegex = /.*(png|jpg|jpeg|gif)$/  // Regex para verificar si la url es una imagen
 
     const validation = ({name, heightMin, heightMax, weightMin, weightMax, life, image, temperaments}) => {
         let error = {}
-        if(nameRegex.test(name) || name == ""){
-            error.name = "El nombre no debe contener numeros o estar vacio";
+        if(nameRegex.test(name) || name === ""){
+            error.name = "The name must not contain numbers or be empty.";
         } 
 
         if(heightMax !== "" && Number(heightMax) < Number(heightMin)){
-            error.heightMax = "Height maximo no puede ser menor que el Height minimo";
+            error.heightMax = "Max height cannot be less than min height";
         }
 
         if(weightMax.length && Number(weightMax) < Number(weightMin)){
-           error.weightMax = "Weight maximo no puede ser menor que el Weight minimo";
+           error.weightMax = "the maximum weight cannot be less than the minimum weight";
         }
         if(!life.length){
-            error.life = "El life no puede ser vacio"
+            error.life = "Life can't be empty"
         }
         if(image !== "" && !imgRegex.test(image)){
-            error.image = "La url no tiene una imagen"
+            error.image = "The url does not have an image"
         }
 
         if(temperaments.length) {
@@ -42,21 +39,16 @@ const Form = () => {
            temperaments.forEach(t => t.id !== undefined && arrValues.push(Object.values(t)[0]))
            const arrSet = new Set([...arrValues])
            if(arrValues.length < temperaments.length){
-            error.temperaments = "Hay temperaments que faltan asignar"
+            error.temperaments = "There are temperaments that need to be assigned"
            }
            if(arrSet.size < arrValues.length){
-            console.log("ingei")
-            error.temperaments = "Hay temperaments duplicados"
+            error.temperaments = "There are duplicate temperaments"
            }
         }
         return error;
         
         
     }
-
-    useEffect( () => {
-        setTemperaments(temperamentsAll)
-    }, [temperamentsAll])
 
     useEffect( () => {
         dispatch(getTemperaments())
@@ -136,24 +128,23 @@ const Form = () => {
         e.preventDefault();
 
         //Primero verifico si hay errores en el form
-        // let err = validation({...form})
 
         if(Object.keys(error).length){
-            alert("Tienes que completar e form y estar sin errores")
+            alert("You have to complete the form and be without errors")
             return
         }
 
         axios.post(url, form)
-            .then(data => alert("Create dog successfull"))
-            .catch(data => alert("Create dog error, rellenar el formulario"))
+            .then(data => alert("dog created successfully"))
+            .catch(data => alert("error creating the dog, fill out the form"))
         
     }
 
    
     return (
         <div className={style.formContainer}>
-            <object className={style.div1} data={imagen} type="image/svg+xml"/>
-            <object className={style.div2} data={imagen} type="image/svg+xml"/>
+            <object className={style.div1} data={imagen} type="image/svg+xml" aria-label="Perrito guardian izquierdo"/>
+            <object className={style.div2} data={imagen} type="image/svg+xml" aria-labelledby="Perrito guardian derecho"/>
             <form onSubmit={handleSubmit} className={style.form}>
                 <div className={style.formDiv}>
                     <div className={style.divData}>
@@ -248,7 +239,7 @@ const Form = () => {
                                         ))
                                     }
                                 </select>
-                                <input type="button" id={i} name={i} value="X" onClick={deleteTemperament}/>
+                                <input className={style.deleteTemperament} type="button" id={i} name={i} value="X" onClick={deleteTemperament}/>
                             </div>
                         ))
                     }
@@ -256,7 +247,7 @@ const Form = () => {
                     </div>
                    
                 </div> 
-                <input type="submit" value="Send new Dog" />
+                <input className={style.formButton} type="submit" value="Create new Dog" />
             </form>
         </div>
     )

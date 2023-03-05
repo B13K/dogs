@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import Card from "../Card/Card"
 import style from "./CardContainer.module.css"
 import Pagination from "../Pagination/Pagination"
+import Spinner from "../Spinner/Spinner"
 
 
 const CardContainer = () => {
@@ -14,31 +15,31 @@ const CardContainer = () => {
     const filterDogs = useSelector(state => state.filterDogs) // traemos las condiciones del filtrado
         
     const [ dogs, setDogs ] = useState([])
+    const [load, setLoad] = useState(false);
     
     
     //Paginacion
     const [ currentPage, setCurrentPage ] = useState(1) //Pagina actual
-    const [ dogsPerPage ] = useState(8) //Cuartos dogs habra por pagina
+    const [ dogsPerPage ] = useState(8) //Cuantos dogs habra por pagina
 
-    const indexOfLastDogs = currentPage * dogsPerPage;
-    const indexOfFirstDogs = indexOfLastDogs - dogsPerPage
-    const currentDogs = dogs.slice(indexOfFirstDogs, indexOfLastDogs)
+    const indexOfLastDogs = currentPage * dogsPerPage; // Obtenemos el index del ultimo Dog (8)
+    const indexOfFirstDogs = indexOfLastDogs - dogsPerPage // Obtenemos el index del primer Dog (0)
+    const currentDogs = dogs.slice(indexOfFirstDogs, indexOfLastDogs) //con slice obtenemos los Dogs del rango de los indices
 
-    const paginate = pageNumber => setCurrentPage(pageNumber)
+    const paginate = pageNumber => setCurrentPage(pageNumber) // Seteamos la Pagina en la que estamos
     //End Pagination
 
 
 
-    useEffect( () => {
-       
+    useEffect( () => {    
+        setLoad(true)
         filterSort();
+        if(dogsAll.length){
+            setTimeout(() => {
+                setLoad(false)
+            },500)
+        }
     }, [dogsAll, filterDogs, sortDogs])
-
-    // useEffect( () => {
-    //     let data = createSort(dogs, sortDogs)
-    //     setDogs(data)
-    //     setCurrentPage(1)
-    // }, [sortDogs])
 
 
 
@@ -117,22 +118,27 @@ const CardContainer = () => {
     
     return (
         <div className={style.container}>
-            <div className={style.cardContainer}>
-                {
-                    currentDogs.map(e => 
-                            <Card 
-                                key={e.id}
-                                id = {e.id}
-                                name = {e.name}
-                                weight = {e.weightMax}
-                                temperament = {e.temperament}
-                                image = {e.image}         
-                            />)
-                }
-            </div>
-            <div>
-                <Pagination dogsPerPage={dogsPerPage} totalDogs = {dogs.length} paginate={paginate}/>
-            </div>
+            { 
+                load ? <Spinner/>
+                   : <div>
+                        <div className={style.cardContainer}>
+                            {
+                                currentDogs.map(e => 
+                                        <Card 
+                                            key={e.id}
+                                            id = {e.id}
+                                            name = {e.name}
+                                            weight = {e.weightMax}
+                                            temperament = {e.temperament}
+                                            image = {e.image}         
+                                        />)
+                            }
+                        </div>
+                        <div>
+                            <Pagination dogsPerPage={dogsPerPage} totalDogs = {dogs.length} paginate={paginate}/>
+                        </div>
+                    </div>
+            }
         </div>
     )
 }
